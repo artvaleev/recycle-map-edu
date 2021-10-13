@@ -1,9 +1,10 @@
 <template>
   <ul>
     <TodoItem
-      v-for="todoItem of todos"
+      v-for="(todoItem, index) of todos"
       v-bind:key="todoItem.id"
       v-bind:todo="todoItem"
+      v-bind:index="index"
       v-on:removeTodo="removeTodo"
     />
   </ul>
