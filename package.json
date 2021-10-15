@@ -9,8 +9,11 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "mobx": "^6.3.5",
+    "mobx-vue": "^2.1.0",
     "vue": "^2.6.11",
     "vue-router": "^3.5.2",
+    "vue-toastification": "^1.7.11",
     "vue-yandex-maps": "^0.10.12"
   },
   "devDependencies": {
