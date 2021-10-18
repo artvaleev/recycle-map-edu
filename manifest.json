@@ -1,0 +1,21 @@
+{
+  "short_name": "KazanRecycling",
+  "name": "Kazan Recycling Points",
+  "description": "Find a places to recycle in Kazan city of Russia",
+  "icons": [
+    {
+      "src": "/images/icons-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/icons-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#FAFAFA",
+  "display": "standalone",
+  "prefer_related_applications": false
+}
