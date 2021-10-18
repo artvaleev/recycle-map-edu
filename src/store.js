@@ -1,6 +1,17 @@
 import { action, computed, observable, makeObservable } from "mobx";
-import { loadItems } from './tools/loadItems';
 import { fakeItems } from './constants';
+import { loadItems } from './tools';
+
+const isOpen = ({ nowDayName, nowHours }) => (item) => {
+  const { worktime } = item;
+  
+  if (!worktime || Object.keys(worktime).length < 1 || !worktime[nowDayName]) return true;
+
+  return worktime[nowDayName][0] <= nowHours && nowHours < worktime[nowDayName][1];
+};
+
+// for maps
+const injectCoords = (item) => ({ ...item, coords: [item.lon, item.lat] });
 
 class ViewModel {
   items = fakeItems;
@@ -13,10 +24,12 @@ class ViewModel {
 
   constructor() {
     makeObservable(this, {
+      filters: observable,
       items: observable,
       setItems: action,
       setFilter: action,
       filteredItems: computed,
+      openItems: computed,
     })
   }
 
@@ -36,8 +49,25 @@ class ViewModel {
     loadItems(vueComponentInstance).then(this.setItems);
   }
 
+  get openItems(){
+    const now = new Date();
+    const nowHours = now.getHours();
+    const nowDayName = new Intl.DateTimeFormat('en-US', { weekday: 'long'}).format(now).toLocaleLowerCase();
+
+    return this.items.filter(isOpen({ nowHours, nowDayName }));
+  }
+
   get filteredItems() {
-    return this.items.map((item) => ({ ...item, coords: [item.lon, item.lat] }));
+    let result = this.filters.isOpen.length ? this.openItems : this.items;
+
+    if (this.filters.placeType.length) {
+      result = result.filter((item) => this.filters.placeType.some((placeType) => item[placeType]));
+    }
+    if (this.filters.trashType.length) {
+      result = result.filter((item) => this.filters.trashType.some((trashType) => item[trashType]));
+    }
+
+    return result.map(injectCoords);
   }
 }
 

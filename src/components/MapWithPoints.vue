@@ -4,9 +4,9 @@
       v-for="item in items"
       v-bind:key="item.title"
       :coords="item.coords" 
-      :marker-id="item.title"
+      :marker-id="item.id"
       :hint-content="item.title"
-      @click="onMarkerClick"
+      :balloon="item | prepareBalloonConfig"
     />
   </yandex-map>
 </template>
@@ -14,6 +14,8 @@
 <script>
 import { yandexMap, ymapMarker } from 'vue-yandex-maps';
 import { settings } from '@/maps_settings';
+import { formBalloonContent } from '@/tools';
+
 export default {
   name: 'MapWithPoints',
   components: { yandexMap, ymapMarker },
@@ -36,5 +38,10 @@ export default {
       console.log(e.get('target'));
     },
   },
+  filters: {
+    prepareBalloonConfig: (item) => {
+      return { body: formBalloonContent(item) };
+    },
+  }
 }
 </script>
