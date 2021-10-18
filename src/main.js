@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Toast from "vue-toastification";
 import App from './App.vue'
 import "vue-toastification/dist/index.css";
+import './registerServiceWorker'
 
 Vue.config.productionTip = false
 Vue.use(Toast, {
