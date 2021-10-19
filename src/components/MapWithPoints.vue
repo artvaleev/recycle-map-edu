@@ -2,7 +2,7 @@
   <yandex-map :settings="settings" :coords="center" :zoom="12" :controls="['zoomControl' ,'trafficControl']" class="map">
     <ymap-marker
       v-for="item in items"
-      v-bind:key="item.title"
+      v-bind:key="item.id"
       :coords="item.coords" 
       :marker-id="item.id"
       :hint-content="item.title"
