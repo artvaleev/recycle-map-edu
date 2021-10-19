@@ -1,5 +1,4 @@
 import { action, computed, observable, makeObservable } from "mobx";
-import { fakeItems } from './constants';
 import { loadItems } from './tools';
 
 const isOpen = ({ nowDayName, nowHours }) => (item) => {
@@ -14,7 +13,7 @@ const isOpen = ({ nowDayName, nowHours }) => (item) => {
 const injectCoords = (item) => ({ ...item, coords: [item.lon, item.lat] });
 
 class ViewModel {
-  items = fakeItems;
+  items = [];
 
   filters = {
     placeType: [],

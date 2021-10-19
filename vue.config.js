@@ -1,7 +1,10 @@
 module.exports = {
   pwa: {
     name: 'Kazan Recycling Points',
-    workboxPluginMode: 'GenerateSW',
+    workboxPluginMode: 'InjectManifest',
+    workboxOptions: {
+      swSrc: 'src/service-worker.js'
+    },
     themeColor: '#FAFAFA',
     iconPaths: {
       faviconSVG: null,

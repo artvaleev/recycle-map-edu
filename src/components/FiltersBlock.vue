@@ -40,7 +40,12 @@ export default ({
 })
 </script>
 
-
+<style>
+#map:not(.onLine) .filters {
+  position: static;
+  margin: 15px;
+}
+</style>
 <style scoped>
 .filters {
   position: fixed;

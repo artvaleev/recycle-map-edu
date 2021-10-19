@@ -1,15 +1,16 @@
 <template>
   <div id="app">    
-    <div id="map">
-      <map-with-points :items="store.filteredItems" />
+    <div id="map" :class="{ onLine }">
       <filters-block />
+      <map-with-points v-if="onLine" :items="store.filteredItems" />
+      <offline-list v-else :items="store.filteredItems" />
     </div>
   </div>
 </template>
 
 <script>
 import { observer } from "mobx-vue";
-import { MapWithPoints, FiltersBlock } from './components';
+import { MapWithPoints, FiltersBlock, OfflineList } from './components';
 import { store } from './store';
 
 export default observer({
@@ -17,12 +18,26 @@ export default observer({
   data() {
     return {
       store,
+      onLine: navigator.onLine,
     };
   },
   mounted() {
     this.store.loadData(this);
+
+    window.addEventListener('online', this.updateOnlineStatus);
+    window.addEventListener('offline', this.updateOnlineStatus);
   },
-  components: { MapWithPoints, FiltersBlock  },
+  beforeDestroy() {
+    window.removeEventListener('online', this.updateOnlineStatus);
+    window.removeEventListener('offline', this.updateOnlineStatus);
+  },
+  components: { MapWithPoints, FiltersBlock, OfflineList },
+  methods: {
+    updateOnlineStatus(e) {
+      const { type } = e;
+      this.onLine = type === 'online';
+    }
+  }
 });
 </script>
 
@@ -30,17 +45,22 @@ export default observer({
 body {
   padding: 0;
   margin: 0;
-}
-#app {
+  background: #F0F0F0;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+
 #map {
-  width: 100%;
+}
+
+#map.onLine {
   height: 100vh;
-  background: grey;
+}
+
+#map:not(.onLine) {
+  display: flex;
 }
 
 #map > .ymap-container {
