@@ -53,14 +53,23 @@ body {
 }
 
 #map {
-}
-
-#map.onLine {
   height: 100vh;
 }
 
 #map:not(.onLine) {
   display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 768px ) {
+  #map.onLine {
+    height: 100vh;
+  }
+
+  #map:not(.onLine) {
+    flex-direction: row;
+  }
 }
 
 #map > .ymap-container {

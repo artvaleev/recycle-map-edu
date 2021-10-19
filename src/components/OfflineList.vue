@@ -2,7 +2,7 @@
   <div class="offlineData">
     <strong>К сожалению, без интернета невозможно отобразить карту.</strong> Но список мест утилизации доступен:
     <ul>
-      <li v-for="item in items" v-bind:key="item.id"><strong>{{item.title}}</strong> / {{item.address}} ({{item.description}})</li>
+      <li v-for="item in items" v-bind:key="item.id"><strong>{{item.title}}</strong> / {{item.address}} <span v-if="item.description" class="muted">({{item.description}})</span></li>
     </ul>
   </div>
 </template>
@@ -27,13 +27,20 @@ export default {
   padding: 15px;
   background: #fff;
   flex: 1;
-  max-height: calc(100vh - 60px);
   overflow-y: scroll;
+}
+@media screen and (min-width: 768px ) {
+  .offlineData { 
+    max-height: calc(100vh - 60px);
+  }
 }
 ul {
   padding-left: 15px;
 }
 li:not(:first-child) {
   margin-top: 10px;
+}
+.muted {
+  color: #999;
 }
 </style>

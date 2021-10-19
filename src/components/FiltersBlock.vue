@@ -46,6 +46,7 @@ export default ({
   margin: 15px;
 }
 </style>
+
 <style scoped>
 .filters {
   position: fixed;
@@ -54,14 +55,27 @@ export default ({
   left: 15px;
   background-color: #fff;
   padding: 15px;
-  width: 300px;
+  order: 2;
+  width: auto;
+  right: 15px;
 }
+
+@media screen and (min-width: 768px ) {
+  .filters {
+    order: unset;
+    width: 300px;
+    right: unset;
+  }
+}
+
 label {
   display: block;
 }
+
 .section:not(:first-child) {
   margin-top: 10px;
 }
+
 .section__title {
   font-weight: bold;
 }
